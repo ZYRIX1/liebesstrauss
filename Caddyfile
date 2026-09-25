@@ -1,0 +1,7 @@
+# Ersetze die Domain durch deine eigene (DNS-A-Record muss auf den Server zeigen).
+liebe.example.com {
+	# Nur statische Dateien komprimieren – der Echtzeit-Stream (/api/events) soll ungepuffert bleiben.
+	@static not path /api/*
+	encode @static gzip zstd
+	reverse_proxy app:3000
+}

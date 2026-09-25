@@ -1,0 +1,240 @@
+@import "tailwindcss";
+@source not "../data";
+@import "@fontsource-variable/nunito";
+@import "@fontsource-variable/fraunces/wght-italic.css";
+@import "@fontsource/caveat/500.css";
+@import "@fontsource/caveat/700.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --font-sans: "Nunito Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces Variable", Georgia, serif;
+  --font-hand: "Caveat", "Segoe Script", cursive;
+
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-rose: var(--rose);
+  --color-rose-strong: var(--rose-strong);
+  --color-rose-soft: var(--rose-soft);
+  --color-sage: var(--sage);
+  --color-sage-strong: var(--sage-strong);
+  --color-sage-soft: var(--sage-soft);
+  --color-paper: var(--paper);
+  --color-paper-ink: var(--paper-ink);
+  --color-on-rose: var(--on-rose);
+}
+
+:root {
+  --bg: #fbf4ef;
+  --bg-2: #f7e6e2;
+  --bg-3: #eef0e6;
+  --surface: #fffdfb;
+  --surface-2: #f6ede8;
+  --ink: #3f2e35;
+  --muted: #8c767d;
+  --line: #eddcd5;
+  --rose: #e28ba1;
+  --rose-strong: #c4607b;
+  --rose-soft: #f9dfe6;
+  --on-rose: #ffffff;
+  --sage: #9bb598;
+  --sage-strong: #5f8a5c;
+  --sage-soft: #e4ede0;
+  --paper: #fffaf2;
+  --paper-ink: #45323a;
+  --paper-line: #f1ddd5;
+  --shadow: 70 38 48;
+
+  /* Strauß */
+  --wrap: #f4e6d8;
+  --wrap-shade: #e7d2bf;
+  --wrap-back: #ead8c6;
+  --wrap-edge: #dcc3ad;
+  --ribbon: #e28ba1;
+  --ribbon-dark: #c4607b;
+  --stem: #7ea279;
+  --stem-dark: #5d8258;
+  --leaf: #9cc095;
+  --leaf-dark: #6f9a69;
+  --filler: #ffffff;
+  --check: #5f8a5c;
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #1d1719;
+  --bg-2: #2a1d22;
+  --bg-3: #1c231d;
+  --surface: #272023;
+  --surface-2: #32292d;
+  --ink: #f6eaec;
+  --muted: #b7a2a8;
+  --line: #3e3337;
+  --rose: #eb9db1;
+  --rose-strong: #f4b7c6;
+  --rose-soft: #4a2d37;
+  --on-rose: #2a1a20;
+  --sage: #93b38f;
+  --sage-strong: #b2d0ad;
+  --sage-soft: #28352a;
+  --paper: #2e2427;
+  --paper-ink: #f5e8e9;
+  --paper-line: #43363a;
+  --shadow: 0 0 0;
+
+  --wrap: #5b4750;
+  --wrap-shade: #4a3942;
+  --wrap-back: #684f5b;
+  --wrap-edge: #7a6069;
+  --ribbon: #eb9db1;
+  --ribbon-dark: #c9748b;
+  --stem: #6f9869;
+  --stem-dark: #52774d;
+  --leaf: #7faa78;
+  --leaf-dark: #587f53;
+  --filler: #f3e7ea;
+  --check: #93b38f;
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    font-family: var(--font-sans);
+    color: var(--ink);
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(120% 60% at 15% 0%, var(--bg-2) 0%, transparent 60%),
+      radial-gradient(90% 50% at 100% 100%, var(--bg-3) 0%, transparent 65%);
+    background-attachment: fixed;
+    overflow-x: hidden;
+    overscroll-behavior-y: none;
+  }
+
+  button { cursor: pointer; touch-action: manipulation; }
+  :focus-visible { outline: 3px solid var(--rose); outline-offset: 2px; }
+}
+
+.shadow-soft { box-shadow: 0 1px 2px rgb(var(--shadow) / 0.06), 0 8px 24px -8px rgb(var(--shadow) / 0.18); }
+.shadow-lift { box-shadow: 0 2px 4px rgb(var(--shadow) / 0.08), 0 18px 40px -12px rgb(var(--shadow) / 0.32); }
+.dark .shadow-soft, .dark .shadow-lift { box-shadow: 0 1px 0 rgb(255 255 255 / 0.04) inset, 0 12px 32px -10px rgb(0 0 0 / 0.6); }
+
+.pb-safe { padding-bottom: max(16px, env(safe-area-inset-bottom)); }
+.pt-safe { padding-top: max(10px, env(safe-area-inset-top)); }
+
+/* Briefpapier */
+.paper-lines {
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 35px, var(--paper-line) 35px, var(--paper-line) 36px);
+  background-position: 0 14px;
+}
+
+/* ---------- Strauß-Animationen ---------- */
+
+.bouquet-sway { animation: bouquet-sway 9s ease-in-out infinite; transform-origin: 0 0; }
+@keyframes bouquet-sway { 0%, 100% { transform: rotate(-0.7deg); } 50% { transform: rotate(0.7deg); } }
+
+.head-sway {
+  animation: head-sway var(--sway-dur, 5s) ease-in-out infinite;
+  animation-delay: var(--sway-delay, 0s);
+  transform-origin: 0 28px;
+}
+@keyframes head-sway { 0%, 100% { transform: rotate(calc(var(--sway-amp, 3deg) * -1)); } 50% { transform: rotate(var(--sway-amp, 3deg)); } }
+
+.bud-glow { animation: bud-glow 2.6s ease-in-out infinite; animation-delay: var(--glow-delay, 0s); transform-origin: 0 0; }
+@keyframes bud-glow { 0%, 100% { opacity: 0.35; transform: scale(0.88); } 50% { opacity: 0.95; transform: scale(1.12); } }
+
+.bud-breathe { animation: bud-breathe 2.6s ease-in-out infinite; animation-delay: var(--glow-delay, 0s); transform-origin: 0 20px; }
+@keyframes bud-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+.twinkle { animation: twinkle 2.2s ease-in-out infinite; animation-delay: var(--tw-delay, 0s); transform-box: fill-box; transform-origin: center; }
+@keyframes twinkle { 0%, 100% { opacity: 0; transform: scale(0.3) rotate(0deg); } 45%, 55% { opacity: 1; transform: scale(1) rotate(45deg); } }
+
+.bud-out { animation: bud-out 0.45s ease-in forwards; transform-origin: 0 10px; }
+@keyframes bud-out { 0% { transform: scale(1); opacity: 1; } 40% { transform: scale(1.12, 0.92); } 100% { transform: scale(0.4); opacity: 0; } }
+
+.blooming .layer {
+  animation: unfold 1s cubic-bezier(0.2, 0.9, 0.25, 1.15) both;
+  animation-delay: calc(0.25s + var(--d, 0) * 0.13s);
+  transform-origin: 0 0;
+}
+@keyframes unfold {
+  0% { opacity: 0; transform: scale(0.15) rotate(var(--r, -50deg)); }
+  35% { opacity: 1; }
+  100% { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+.burst-dot { animation: burst 1.1s cubic-bezier(0.15, 0.7, 0.3, 1) both; animation-delay: 0.3s; }
+@keyframes burst {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.4); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1); }
+}
+
+.arrive { animation: arrive 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.4) both; transform-origin: 0 0; }
+@keyframes arrive { 0% { transform: scale(0.3); opacity: 0.2; } 100% { transform: scale(1); opacity: 1; } }
+
+.wiggle { animation: wiggle 0.6s ease-in-out; transform-origin: 0 20px; }
+@keyframes wiggle { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-7deg) scale(1.05); } 60% { transform: rotate(5deg) scale(1.05); } }
+
+/* ---------- UI-Animationen ---------- */
+
+.fade-in { animation: fade-in 0.25s ease-out both; }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+.sheet-up { animation: sheet-up 0.38s cubic-bezier(0.2, 0.9, 0.25, 1) both; }
+@keyframes sheet-up { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+.rise-in { animation: rise-in 0.5s cubic-bezier(0.2, 0.9, 0.25, 1) both; animation-delay: var(--delay, 0s); }
+@keyframes rise-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+.toast-in { animation: toast-in 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2) both; }
+@keyframes toast-in { from { opacity: 0; transform: translateY(-12px) scale(0.96); } to { opacity: 1; transform: none; } }
+
+/* Briefumschlag */
+.env-in { animation: env-in 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.25) both; }
+@keyframes env-in { from { opacity: 0; transform: translateY(40px) scale(0.6) rotate(-6deg); } to { opacity: 1; transform: none; } }
+
+.env-letter { z-index: 2; transition: transform 0.55s cubic-bezier(0.3, 0.8, 0.3, 1) 0.5s; }
+.env-open .env-letter { transform: translateY(-48%); }
+.env-pocket { z-index: 3; }
+.env-flap { z-index: 4; transform-origin: 50% 0; transition: transform 0.5s ease-in-out 0.1s, z-index 0s linear 0.35s; }
+.env-open .env-flap { transform: rotateX(180deg); z-index: 1; }
+.env-seal { z-index: 5; transition: opacity 0.2s ease, transform 0.25s ease; }
+.env-open .env-seal { opacity: 0; transform: scale(0.5); }
+
+.card-in { animation: card-in 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.1) both; }
+@keyframes card-in { from { opacity: 0; transform: translateY(24px) rotate(-2.5deg) scale(0.96); } to { opacity: 1; transform: none; } }
+
+.shimmer-text {
+  background: linear-gradient(100deg, var(--muted) 30%, var(--rose) 50%, var(--muted) 70%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 3.2s linear infinite;
+}
+@keyframes shimmer { from { background-position: 100% 0; } to { background-position: -150% 0; } }
+
+.spin { animation: spin 0.9s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .bouquet-sway, .head-sway, .bud-glow, .bud-breathe, .twinkle, .shimmer-text { animation: none !important; }
+  .blooming .layer, .burst-dot, .arrive, .wiggle, .sheet-up, .rise-in, .card-in, .env-in { animation-duration: 0.01s !important; animation-delay: 0s !important; }
+  .env-flap, .env-letter, .env-seal { transition-duration: 0.01s !important; transition-delay: 0s !important; }
+}
+
+/* Scrollbar in Listen dezent */
+.scroll-thin { scrollbar-width: thin; scrollbar-color: var(--line) transparent; }

@@ -1,0 +1,29 @@
+# Liebesstrauß + Caddy (automatisches HTTPS über Let's Encrypt)
+# 1. In der Datei "Caddyfile" deine Domain eintragen
+# 2. docker compose up -d
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    environment:
+      # Kontaktadresse für Push-Dienste (Pflichtangabe laut Web-Push-Standard)
+      VAPID_SUBJECT: "mailto:du@example.com"
+    volumes:
+      - ./data:/data
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
+
+volumes:
+  caddy_data:
+  caddy_config:
