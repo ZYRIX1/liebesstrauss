@@ -18,6 +18,6 @@ COPY --from=build /app/dist ./dist
 COPY server ./server
 COPY shared ./shared
 COPY scripts/reset-pin.mjs ./scripts/reset-pin.mjs
-VOLUME /data
+# Die Datenbank liegt in /data – dort einen dauerhaften Speicher (Volume) einhängen.
 EXPOSE 3000
 CMD ["node", "--disable-warning=ExperimentalWarning", "server/index.js"]
